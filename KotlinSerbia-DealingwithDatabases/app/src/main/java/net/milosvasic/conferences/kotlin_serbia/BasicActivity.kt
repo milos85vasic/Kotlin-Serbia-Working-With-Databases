@@ -45,6 +45,14 @@ abstract class BasicActivity : AppCompatActivity() {
                 result.forEach { student -> Log.v(tag, student.toString()) }
             }).start()
         }
+
+        select_all.setOnClickListener {
+            Thread({
+                val result = doSelectAll()
+                Log.i(tag, "Select All [ items: ${result.size} ]")
+                result.forEach { student -> Log.v(tag, student.toString()) }
+            }).start()
+        }
     }
 
     abstract fun doInsert(): Boolean
@@ -54,6 +62,8 @@ abstract class BasicActivity : AppCompatActivity() {
     abstract fun doUpdate(): Boolean
 
     abstract fun doSelect(): List<Student>
+
+    abstract fun doSelectAll(): List<Student>
 
     private fun logResult(result: Boolean, msg: String) {
         if (result) {

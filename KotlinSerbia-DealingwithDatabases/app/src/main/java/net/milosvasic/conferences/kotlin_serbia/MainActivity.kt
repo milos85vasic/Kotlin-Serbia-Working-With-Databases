@@ -24,9 +24,9 @@ class MainActivity : BasicActivity() {
 
     override fun doUpdate(): Boolean {
         val student0 = students[0]
-        val student1 = students[0]
+        val student1 = students[1]
         student0.firstName = "CHANGED"
-        student0.lastName = "CHANGED"
+        student1.lastName = "CHANGED"
 
         // UPDATE:
         return Db.update(student0, student1)
@@ -45,6 +45,11 @@ class MainActivity : BasicActivity() {
     override fun doSelect(): List<Student> {
         // SELECT:
         return Db.select(Pair(DbHelper.FIRST_NAME, "Nikola"))
+    }
+
+    override fun doSelectAll(): List<Student> {
+        // SELECT:
+        return Db.select()
     }
 
 }

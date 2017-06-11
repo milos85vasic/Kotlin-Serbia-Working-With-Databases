@@ -82,8 +82,28 @@ object Db : Crud<Student> {
     }
 
     override fun update(vararg what: Student): Boolean {
-
-        return false
+        db.beginTransaction()
+        var updated = 0
+        what.forEach {
+            item ->
+            val values = ContentValues()
+            values.put(DbHelper.FIRST_NAME, item.firstName)
+            values.put(DbHelper.LAST_NAME, item.lastName)
+            values.put(DbHelper.YEAR, item.yearOfBirth)
+            db.update(
+                    DbHelper.TABLE,
+                    values,
+                    "_id = ?",
+                    arrayOf(item.id.toString())
+            )
+            updated++
+        }
+        val result = updated == what.size
+        if (result) {
+            db.setTransactionSuccessful()
+        }
+        db.endTransaction()
+        return result
     }
 
     override fun update(what: Collection<Student>): Boolean {
