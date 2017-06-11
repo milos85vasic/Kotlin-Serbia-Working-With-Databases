@@ -1,29 +1,83 @@
-apply plugin: 'com.android.application'
-
-android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
-    defaultConfig {
-        applicationId "net.milosvasic.conferences.kotlin_serbia"
-        minSdkVersion 21
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+buildscript {
+    repositories {
+        maven {
+            url uri("http://repo.milosvasic.net/releases")
+            maven { url 'https://maven.fabric.io/public' }
         }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.milosvasic.groot', name: 'Groot', version: '1.0.0-Beta-4-Exp'
+        classpath 'org.jetbrains.kotlin:kotlin-reflect:1.1.2-3'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.2-3'
+        classpath 'com.android.tools.build:gradle:2.3.3'
     }
 }
+
+apply plugin: 'groot'
+apply plugin: 'groot-android-application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.2-3'
+    compile 'org.jetbrains.kotlin:kotlin-reflect:1.1.2-3'
     compile 'com.android.support:appcompat-v7:25.3.1'
-    testCompile 'junit:junit:4.12'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'org.jetbrains.kotlin:kotlin-test:1.1.2-3'
+    testCompile 'org.jetbrains.kotlin:kotlin-test-junit:1.1.2-3'
 }
+
+final alpha = 0
+final beta = 0
+final version = 1
+final secondaryVersion = 0
+final tertiaryVersion = 0
+final projectPackage = "kotlin_serbia"
+final projectGroup = "net.milosvasic.conferences"
+
+groot.android.project.setup(
+        alpha,
+        beta,
+        version,
+        secondaryVersion,
+        tertiaryVersion,
+        projectGroup,
+        projectPackage,
+        false
+)
+
+android {
+    buildTypes {
+        debug {
+            applicationIdSuffix ".dev"
+        }
+        release {
+            debuggable false
+            proguardFile 'proguard-rules.pro'
+        }
+    }
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 26
+    }
+    sourceSets.main.java.srcDirs += [
+            'src/main/kotlin',
+            'src/common/kotlin',
+            'src/debug/kotlin',
+            'src/release/kotlin',
+            'src/staging/kotlin',
+            'src/preproduction/kotlin',
+            'src/debug/java',
+            'src/release/java',
+            'src/staging/java',
+            'src/preproduction/java',
+            'src/androidTest/java',
+            'src/androidTest/kotlin'
+    ]
+    packagingOptions {
+        pickFirst 'META-INF/LICENSE'
+    }
+}
+
