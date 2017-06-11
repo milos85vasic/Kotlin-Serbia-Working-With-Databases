@@ -8,6 +8,7 @@ import net.milosvasic.conferences.kotlin_serbia.Application
 
 class DbHelper(val dbName: String, val version: Int) : SQLiteOpenHelper(Application.ctx, dbName, null, version) {
 
+    // Pay attention: Companion object.
     companion object {
         val ID: String = "_id"
         val FIRST_NAME: String = "FIRST_NAME"
@@ -16,6 +17,7 @@ class DbHelper(val dbName: String, val version: Int) : SQLiteOpenHelper(Applicat
         val TABLE = "students"
     }
 
+    // Pay attention: Multiline string!
     private val createTable = """
                                     CREATE TABLE if not exists $TABLE
                                     (
