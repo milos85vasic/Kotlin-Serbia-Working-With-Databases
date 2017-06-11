@@ -5,19 +5,19 @@ import net.milosvasic.conferences.kotlin_serbia.model.Student
 
 object Db : Crud<Student> {
 
-    override fun insert(what: Student): Boolean {
+    override fun insert(vararg what: Student): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun select(what: String): List<Student> {
+    override fun select(vararg what: String): List<Student> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun update(what: Student): Boolean {
+    override fun update(vararg what: Student): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun delete(what: Student) {
+    override fun delete(vararg what: Student) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
