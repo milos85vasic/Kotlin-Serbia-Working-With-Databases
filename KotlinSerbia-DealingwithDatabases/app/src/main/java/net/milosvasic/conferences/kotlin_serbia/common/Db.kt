@@ -8,18 +8,20 @@ object Db : Crud<Student> {
 
     private val version = 1
     private val name = "students"
-    private val dbHelper: DbHelper by lazy { DbHelper(name, version) }
+    private val dbHelper: DbHelper by lazy { DbHelper(name, version) } // Pay attention: Lazy initialization
 
     override fun insert(vararg what: Student): Boolean {
         val db = dbHelper.writableDatabase
         db.beginTransaction()
         var inserted = 0
-        for ((firstName, lastName, yearOfBirth) in what) {
+        for (item in what) {
             val values = ContentValues()
-            values.put(DbHelper.FIRST_NAME, firstName)
-            values.put(DbHelper.LAST_NAME, lastName)
-            values.put(DbHelper.YEAR, yearOfBirth)
-            if (db.insert(dbHelper.dbName, null, values) > 0) {
+            values.put(DbHelper.FIRST_NAME, item.firstName)
+            values.put(DbHelper.LAST_NAME, item.lastName)
+            values.put(DbHelper.YEAR, item.yearOfBirth)
+            val id = db.insert(dbHelper.dbName, null, values)
+            if (id > 0) {
+                item.id = id
                 inserted++
             } else {
                 break
@@ -54,11 +56,25 @@ object Db : Crud<Student> {
     }
 
     override fun delete(vararg what: Student): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val db = dbHelper.writableDatabase
+        db.beginTransaction()
+
+        var ids = ""
+        val statement = db.compileStatement(
+                "DELETE FROM ${DbHelper.TABLE} WHERE ${DbHelper.ID} IN ($ids);"
+        )
+        val count = statement.simpleQueryForLong()
+        var rows = 0
+
+
+        var success = false
+        db.close()
+
+        return success
     }
 
     override fun delete(what: Collection<Student>): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return delete(*what.toTypedArray()) // Pay attention: Spread Operator
     }
 
 }

@@ -13,22 +13,24 @@ class DbHelper(val dbName: String, val version: Int) : SQLiteOpenHelper(Applicat
         val LAST_NAME: String = "LAST_NAME"
         val YEAR: String = "YEAR"
         val TABLE = "students"
-        val SQL_CREATE_DB = "SQL_CREATE_DB"
-
-        val queries = mapOf(
-                Pair(
-                        "SQL_CREATE_DB",
-                        "CREATE TABLE if not exists $TABLE ($ID integer PRIMARY KEY autoincrement, $FIRST_NAME text, $LAST_NAME text, $YEAR integer)"
-                )
-        )
     }
 
+    private val createTable = """
+                                    CREATE TABLE if not exists $TABLE
+                                    (
+                                        $ID integer PRIMARY KEY autoincrement,
+                                        $FIRST_NAME text,
+                                        $LAST_NAME text,
+                                        $YEAR integer
+                                    )
+                              """
+
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL(queries[SQL_CREATE_DB])
+        db.execSQL(createTable)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        // Ingore for now.
+        // Ignore for now.
     }
 
 }

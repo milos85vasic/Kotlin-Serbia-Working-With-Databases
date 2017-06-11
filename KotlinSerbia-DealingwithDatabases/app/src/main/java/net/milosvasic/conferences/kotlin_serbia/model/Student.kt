@@ -1,9 +1,11 @@
 package net.milosvasic.conferences.kotlin_serbia.model
 
 
-data class Student(
-        val firstName: String,
-        val lastName: String,
-        val yearOfBirth: Int,
-        val id: Long = 0
-)
+// Pay attention: Data class extends abstract class.
+data class Student(val firstName: String, val lastName: String, val yearOfBirth: Int) : DbModel() {
+    override var id: Long
+        get() = id
+        set(value) {
+            id = value
+        }
+}
