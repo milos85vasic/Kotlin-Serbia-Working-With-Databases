@@ -17,14 +17,16 @@ abstract class BasicActivity : AppCompatActivity() {
         insert.setOnClickListener {
             Thread({
                 val result = doInsert()
-                Log.i(tag, "Insert [ $result ]")
+                val msg = "Insert [ $result ]"
+                logResult(result, msg)
             }).start()
         }
 
         delete.setOnClickListener {
             Thread({
                 val result = doDelete()
-                Log.i(tag, "Delete [ $result ]")
+                val msg = "Delete [ $result ]"
+                logResult(result, msg)
             }).start()
         }
 
@@ -42,6 +44,14 @@ abstract class BasicActivity : AppCompatActivity() {
     abstract fun doDelete(): Boolean
 
     abstract fun doSelect(): List<Student>
+
+    private fun logResult(result: Boolean, msg: String) {
+        if (result) {
+            Log.i(tag, msg)
+        } else {
+            Log.w(tag, msg)
+        }
+    }
 
 }
 

@@ -25,6 +25,7 @@ object Db : Crud<Student> {
             val id = db.insert(DbHelper.TABLE, null, values)
             if (id > 0) {
                 item.id = id
+                Log.v(tag, "Id assigned [ $id ]")
                 inserted++
             } else {
                 break
