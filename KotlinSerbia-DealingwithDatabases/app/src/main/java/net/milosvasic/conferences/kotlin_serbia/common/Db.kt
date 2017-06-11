@@ -42,12 +42,35 @@ object Db : Crud<Student> {
         return insert(*what.toTypedArray()) // Pay attention: Spread Operator
     }
 
-    override fun select(vararg what: String): List<Student> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun select(vararg args: Pair<String, String>): List<Student> {
+        val result = mutableListOf<Student>()
+        val selection = StringBuilder()
+        val selectionArgs = mutableListOf<String>()
+        args.forEach {
+            arg ->
+            selection.append("${arg.first} == ?")
+            selectionArgs.add(arg.second)
+        }
+        val cursor = db.query(
+                true,
+                DbHelper.TABLE,
+                arrayOf(DbHelper.ID, DbHelper.FIRST_NAME, DbHelper.LAST_NAME, DbHelper.YEAR),
+                selection.toString(),
+                selectionArgs.toTypedArray(),
+                null, null, null, null
+        )
+        while (cursor.moveToNext()) {
+            val firstName = cursor.getString(cursor.getColumnIndexOrThrow(DbHelper.FIRST_NAME))
+            val lastName = cursor.getString(cursor.getColumnIndexOrThrow(DbHelper.LAST_NAME))
+            val id = cursor.getLong(cursor.getColumnIndexOrThrow(DbHelper.ID))
+            val year = cursor.getInt(cursor.getColumnIndexOrThrow(DbHelper.YEAR))
+        }
+        cursor.close()
+        return result
     }
 
-    override fun select(what: Collection<String>): List<Student> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun select(args: Collection<Pair<String, String>>): List<Student> {
+        return select(*args.toTypedArray())
     }
 
     override fun update(vararg what: Student): Boolean {

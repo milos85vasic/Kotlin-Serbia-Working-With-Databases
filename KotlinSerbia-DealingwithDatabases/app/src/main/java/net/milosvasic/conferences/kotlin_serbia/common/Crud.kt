@@ -7,9 +7,9 @@ interface Crud<T> {
 
     fun insert(what: Collection<T>): Boolean
 
-    fun select(vararg what: String): List<T>
+    fun select(vararg args: Pair<String, String>): List<T>
 
-    fun select(what: Collection<String>): List<T>
+    fun select(args: Collection<Pair<String, String>>): List<T>
 
     fun update(vararg what: T): Boolean
 
