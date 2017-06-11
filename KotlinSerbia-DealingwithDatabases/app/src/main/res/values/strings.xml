@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kotlin Serbia - Dealing with Databases</string>
+    <string name="insert">Insert</string>
+    <string name="delete">Delete</string>
 </resources>

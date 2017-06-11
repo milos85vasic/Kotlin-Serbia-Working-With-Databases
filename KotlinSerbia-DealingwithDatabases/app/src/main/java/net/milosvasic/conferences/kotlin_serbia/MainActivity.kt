@@ -1,14 +1,19 @@
 package net.milosvasic.conferences.kotlin_serbia
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import net.milosvasic.conferences.kotlin_serbia.common.Db
+import net.milosvasic.conferences.kotlin_serbia.model.Student
 
-import net.milosvasic.conferences.kotlin_serbia.R
+class MainActivity : BasicActivity() {
 
-class MainActivity : AppCompatActivity() {
+    val john = Student("John", "Smith", 1985)
+    val steve = Student("Steve", "Smith", 1987)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun doInsert(): Boolean {
+        return Db.insert(john, steve)
     }
+
+    override fun doDelete(): Boolean {
+        return Db.delete(steve)
+    }
+
 }

@@ -12,12 +12,13 @@ class DbHelper(val dbName: String, val version: Int) : SQLiteOpenHelper(Applicat
         val FIRST_NAME: String = "FIRST_NAME"
         val LAST_NAME: String = "LAST_NAME"
         val YEAR: String = "YEAR"
+        val TABLE = "students"
         val SQL_CREATE_DB = "SQL_CREATE_DB"
 
         val queries = mapOf(
                 Pair(
                         "SQL_CREATE_DB",
-                        "CREATE TABLE if not exists students ($ID integer PRIMARY KEY autoincrement, $FIRST_NAME text, $LAST_NAME text, $YEAR integer)"
+                        "CREATE TABLE if not exists $TABLE ($ID integer PRIMARY KEY autoincrement, $FIRST_NAME text, $LAST_NAME text, $YEAR integer)"
                 )
         )
     }

@@ -15,8 +15,8 @@ interface Crud<T> {
 
     fun update(what: Collection<T>): Boolean
 
-    fun delete(vararg what: T)
+    fun delete(vararg what: T) : Boolean
 
-    fun delete(what: Collection<T>)
+    fun delete(what: Collection<T>) : Boolean
 
 }
