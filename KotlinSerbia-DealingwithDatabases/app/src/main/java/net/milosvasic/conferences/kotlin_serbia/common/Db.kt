@@ -7,7 +7,7 @@ object Db : Crud<Student> {
 
     private val version = 1
     private val name = "students"
-    private val dbHelper = DbHelper(name, version)
+    private val dbHelper: DbHelper by lazy { DbHelper(name, version) }
 
 
     override fun insert(vararg what: Student): Boolean {
