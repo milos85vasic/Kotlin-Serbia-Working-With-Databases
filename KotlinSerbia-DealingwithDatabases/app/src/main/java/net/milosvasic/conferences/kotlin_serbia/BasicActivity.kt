@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 abstract class BasicActivity : AppCompatActivity() {
 
-    val tag = "Dealing with databases"
+    val tag = Application.tag
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

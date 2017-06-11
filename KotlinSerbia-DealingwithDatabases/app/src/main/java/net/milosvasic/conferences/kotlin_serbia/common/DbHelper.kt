@@ -2,6 +2,7 @@ package net.milosvasic.conferences.kotlin_serbia.common
 
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import net.milosvasic.conferences.kotlin_serbia.Application
 
 
@@ -27,6 +28,7 @@ class DbHelper(val dbName: String, val version: Int) : SQLiteOpenHelper(Applicat
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(createTable)
+        Log.d(Application.tag, "Database [ CREATED ]")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

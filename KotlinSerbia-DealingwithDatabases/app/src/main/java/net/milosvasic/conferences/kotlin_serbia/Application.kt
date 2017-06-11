@@ -8,6 +8,7 @@ class Application : Application() {
 
     companion object {
         var ctx: Context? = null
+        val tag = "Dealing with databases"
     }
 
     override fun onCreate() {
