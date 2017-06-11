@@ -28,16 +28,16 @@ student0.firstName = "CHANGED"
 student1.lastName = "CHANGED"
 
 // UPDATE:
-return Db.update(student0, student1)
+val success =  Db.update(student0, student1)
 ```
 
 - Delete:
 ```
-val result = Db.delete(students)
+val success = Db.delete(students)
 ```
 or
 ```
-val result = Db.delete(student0, student1)
+val success = Db.delete(student0, student1)
 ```
 
 - Select:
