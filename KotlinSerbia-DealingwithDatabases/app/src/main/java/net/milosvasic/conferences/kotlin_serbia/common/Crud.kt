@@ -1,4 +1,4 @@
-package net.milosvasic.conferences.kotlin_serbia.database
+package net.milosvasic.conferences.kotlin_serbia.common
 
 
 interface Crud<T> {

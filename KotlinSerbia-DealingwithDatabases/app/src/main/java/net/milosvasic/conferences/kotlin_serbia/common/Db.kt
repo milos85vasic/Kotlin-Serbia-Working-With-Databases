@@ -1,9 +1,14 @@
-package net.milosvasic.conferences.kotlin_serbia.database
+package net.milosvasic.conferences.kotlin_serbia.common
 
 import net.milosvasic.conferences.kotlin_serbia.model.Student
 
 
 object Db : Crud<Student> {
+
+    private val version = 1
+    private val name = "students"
+    private val dbHelper = DbHelper(name, version)
+
 
     override fun insert(vararg what: Student): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
