@@ -9,7 +9,15 @@ object Db : Crud<Student> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun insert(what: Collection<Student>): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun select(vararg what: String): List<Student> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun select(what: Collection<String>): List<Student> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -17,7 +25,15 @@ object Db : Crud<Student> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun update(what: Collection<Student>): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun delete(vararg what: Student) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun delete(what: Collection<Student>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
