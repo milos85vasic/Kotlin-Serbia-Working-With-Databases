@@ -1,6 +1,9 @@
 package net.milosvasic.conferences.kotlin_serbia.common
 
 import android.content.ContentValues
+import android.database.sqlite.SQLiteDatabase
+import android.util.Log
+import net.milosvasic.conferences.kotlin_serbia.Application
 import net.milosvasic.conferences.kotlin_serbia.model.Student
 
 
@@ -8,10 +11,10 @@ object Db : Crud<Student> {
 
     private val version = 1
     private val name = "students"
-    private val dbHelper: DbHelper by lazy { DbHelper(name, version) } // Pay attention: Lazy initialization
+    private val tag = Application.tag
+    private val db: SQLiteDatabase by lazy { DbHelper(name, version).writableDatabase } // Pay attention: Lazy initialization
 
     override fun insert(vararg what: Student): Boolean {
-        val db = dbHelper.writableDatabase
         db.beginTransaction()
         var inserted = 0
         for (item in what) {
@@ -19,7 +22,7 @@ object Db : Crud<Student> {
             values.put(DbHelper.FIRST_NAME, item.firstName)
             values.put(DbHelper.LAST_NAME, item.lastName)
             values.put(DbHelper.YEAR, item.yearOfBirth)
-            val id = db.insert(dbHelper.dbName, null, values)
+            val id = db.insert(DbHelper.TABLE, null, values)
             if (id > 0) {
                 item.id = id
                 inserted++
@@ -31,7 +34,7 @@ object Db : Crud<Student> {
         if (success) {
             db.setTransactionSuccessful()
         }
-        db.close()
+        db.endTransaction()
         return success
     }
 
@@ -56,20 +59,26 @@ object Db : Crud<Student> {
     }
 
     override fun delete(vararg what: Student): Boolean {
-        val db = dbHelper.writableDatabase
         db.beginTransaction()
-
-        var ids = ""
+        val ids = StringBuilder()
+        what.forEachIndexed {
+            index, item ->
+            ids.append(item.id.toString())
+            if (index < what.lastIndex) {
+                ids.append(", ")
+            }
+        }
         val statement = db.compileStatement(
                 "DELETE FROM ${DbHelper.TABLE} WHERE ${DbHelper.ID} IN ($ids);"
         )
-        val count = statement.simpleQueryForLong()
-        var rows = 0
-
-
-        var success = false
-        db.close()
-
+        val success = statement.executeUpdateDelete() > 0
+        if (success) {
+            db.setTransactionSuccessful()
+            Log.i(tag, "Delete [ SUCCESS ][ $statement ]")
+        } else {
+            Log.w(tag, "Delete [ FAILED ][ $statement ]")
+        }
+        db.endTransaction()
         return success
     }
 
