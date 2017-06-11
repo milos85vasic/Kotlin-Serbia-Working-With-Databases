@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
+import net.milosvasic.conferences.kotlin_serbia.model.Student
 
 abstract class BasicActivity : AppCompatActivity() {
 
@@ -27,11 +28,20 @@ abstract class BasicActivity : AppCompatActivity() {
             }).start()
         }
 
+        select.setOnClickListener {
+            Thread({
+                val result = doSelect()
+                Log.i(tag, "Select [ items: ${result.size} ]")
+                result.forEach { student -> Log.v(tag, student.toString()) }
+            }).start()
+        }
     }
 
     abstract fun doInsert(): Boolean
 
     abstract fun doDelete(): Boolean
+
+    abstract fun doSelect(): List<Student>
 
 }
 

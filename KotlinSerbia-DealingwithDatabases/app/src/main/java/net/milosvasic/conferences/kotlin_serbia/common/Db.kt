@@ -64,6 +64,13 @@ object Db : Crud<Student> {
             val lastName = cursor.getString(cursor.getColumnIndexOrThrow(DbHelper.LAST_NAME))
             val id = cursor.getLong(cursor.getColumnIndexOrThrow(DbHelper.ID))
             val year = cursor.getInt(cursor.getColumnIndexOrThrow(DbHelper.YEAR))
+            val student = Student(
+                    firstName,
+                    lastName,
+                    year
+            )
+            student.id = id
+            result.add(student)
         }
         cursor.close()
         return result
