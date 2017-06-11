@@ -22,11 +22,21 @@ class MainActivity : BasicActivity() {
         return false
     }
 
+    override fun doUpdate(): Boolean {
+        val student0 = students[0]
+        val student1 = students[0]
+        student0.firstName = "CHANGED"
+        student0.lastName = "CHANGED"
+
+        // UPDATE:
+        return Db.update(student0, student1)
+    }
+
     override fun doDelete(): Boolean {
         // DELETE:
         val result = Db.delete(students)
 
-        if(result){
+        if (result) {
             students.clear()
         }
         return result

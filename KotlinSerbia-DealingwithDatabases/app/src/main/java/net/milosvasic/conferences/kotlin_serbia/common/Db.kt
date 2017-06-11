@@ -82,11 +82,12 @@ object Db : Crud<Student> {
     }
 
     override fun update(vararg what: Student): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        return false
     }
 
     override fun update(what: Collection<Student>): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return update(*what.toTypedArray())
     }
 
     override fun delete(vararg what: Student): Boolean {

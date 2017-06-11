@@ -22,6 +22,14 @@ abstract class BasicActivity : AppCompatActivity() {
             }).start()
         }
 
+        update.setOnClickListener {
+            Thread({
+                val result = doUpdate()
+                val msg = "Update [ $result ]"
+                logResult(result, msg)
+            }).start()
+        }
+
         delete.setOnClickListener {
             Thread({
                 val result = doDelete()
@@ -42,6 +50,8 @@ abstract class BasicActivity : AppCompatActivity() {
     abstract fun doInsert(): Boolean
 
     abstract fun doDelete(): Boolean
+
+    abstract fun doUpdate(): Boolean
 
     abstract fun doSelect(): List<Student>
 
