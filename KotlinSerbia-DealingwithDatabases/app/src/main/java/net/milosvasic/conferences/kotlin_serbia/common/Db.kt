@@ -101,10 +101,11 @@ object Db : Crud<Student> {
         val statement = db.compileStatement(
                 "DELETE FROM ${DbHelper.TABLE} WHERE ${DbHelper.ID} IN ($ids);"
         )
-        val success = statement.executeUpdateDelete() > 0
+        val count = statement.executeUpdateDelete()
+        val success = count > 0
         if (success) {
             db.setTransactionSuccessful()
-            Log.i(tag, "Delete [ SUCCESS ][ $statement ]")
+            Log.i(tag, "Delete [ SUCCESS ][ $count ][ $statement ]")
         } else {
             Log.w(tag, "Delete [ FAILED ][ $statement ]")
         }
