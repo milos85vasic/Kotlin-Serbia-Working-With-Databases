@@ -23,6 +23,11 @@ class MainActivity : BasicActivity() {
     }
 
     override fun doUpdate(): Boolean {
+        if (students.isEmpty()) {
+            Log.w(tag, "No students to update.")
+            return false
+        }
+
         val student0 = students[0]
         val student1 = students[1]
         student0.firstName = "CHANGED"
